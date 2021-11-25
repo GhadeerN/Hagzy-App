@@ -1,4 +1,4 @@
-package sa.edu.tuwaiq.hagzy.view
+package sa.edu.tuwaiq.hagzy.view.main
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
@@ -16,13 +16,13 @@ class PhotosViewModel: ViewModel(){
     private val apiRepo = ApiServiceRepository.get()
 
     // for get the live data
-    val  photosLiveData = MutableLiveData<List<PhotoModel>>()
+    val  photosLiveData = MutableLiveData<PhotoModel>()
 
     // live data for error
     val photosErrorLiveData = MutableLiveData<String>()
 
     // for just call request
-    fun callPhotos(lat:Double,lon:Double){
+    fun callPhotos(){
 
         // we need Scope with the suspend function
         //viewModelScope -->> the Scope  end after the function end
@@ -30,7 +30,7 @@ class PhotosViewModel: ViewModel(){
 
             try {
                 // send request
-                val response = apiRepo.getPhotos(lat,lon)
+                val response = apiRepo.getPhotos()
 
                 if (response.isSuccessful){
                     response.body()?.run {
@@ -38,7 +38,7 @@ class PhotosViewModel: ViewModel(){
                         photosLiveData.postValue(this)
                     }
                 }else{
-                    Log.d(TAG,response.message())
+                    Log.d(TAG,"else"+response.message())
                     photosErrorLiveData.postValue(response.message())
                 }
             }catch (e:Exception){
