@@ -25,5 +25,6 @@
         android:background="@drawable/ic_baseline_favorite_24"
         android:textOff=" "
         app:layout_constraintEnd_toEndOf="@+id/favorite_imageView"
-        app:layout_constraintTop_toTopOf="@+id/favorite_imageView" />
+        app:layout_constraintTop_toTopOf="@+id/favorite_imageView"
+        tools:ignore="TouchTargetSizeCheck" />
 </androidx.constraintlayout.widget.ConstraintLayout>
