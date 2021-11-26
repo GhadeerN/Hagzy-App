@@ -21,6 +21,10 @@ class PhotosViewModel: ViewModel(){
     // live data for error
     val photosErrorLiveData = MutableLiveData<String>()
 
+    // lat and long variables for the location
+    var latitude = 0.0
+    var longitude = 0.0
+
     // for just call request
     fun callPhotos(){
 
@@ -30,7 +34,7 @@ class PhotosViewModel: ViewModel(){
 
             try {
                 // send request
-                val response = apiRepo.getPhotos()
+                val response = apiRepo.getPhotos(latitude, longitude)
 
                 if (response.isSuccessful){
                     response.body()?.run {
