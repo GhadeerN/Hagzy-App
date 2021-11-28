@@ -56,6 +56,12 @@ class Home_Fragment : Fragment() {
             photoAdapter.submitList(it.photos.photo)
             binding.homeRecyclerView.animate().alpha(1f)
         })
+
+        photoViewModel.databaseLiveData.observe(viewLifecycleOwner, {
+            binding.homeProgressBar.animate().alpha(0f).setDuration(1000)
+            photoAdapter.submitList(it)
+            binding.homeRecyclerView.animate().alpha(1f)
+        })
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
