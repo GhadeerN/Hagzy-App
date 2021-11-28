@@ -5,6 +5,7 @@
     android:id="@+id/main_nav1"
     app:startDestination="@id/home_Fragment">
 
+
     <fragment
         android:id="@+id/homeFragment2"
         android:name="sa.edu.tuwaiq.hagzy.view.main.HomeFragment2"
@@ -15,4 +16,5 @@
         android:name="sa.edu.tuwaiq.hagzy.view.Home_Fragment"
         android:label="fragment_home_"
         tools:layout="@layout/fragment_home_" />
+
 </navigation>
