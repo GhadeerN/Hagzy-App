@@ -34,5 +34,14 @@
         android:id="@+id/mapFragment"
         android:name="sa.edu.tuwaiq.hagzy.MapFragment"
         android:label="fragment_map"
-        tools:layout="@layout/fragment_map" />
+        tools:layout="@layout/fragment_map" >
+        <action
+            android:id="@+id/action_mapFragment_to_mapResultsFragment"
+            app:destination="@id/mapResultsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapResultsFragment"
+        android:name="sa.edu.tuwaiq.hagzy.view.MapResultsFragment"
+        android:label="fragment_map_results"
+        tools:layout="@layout/fragment_map_results" />
 </navigation>

@@ -72,7 +72,7 @@ class MapFragment : Fragment() {
             mapViewModel.latitude = it.latitude
             mapViewModel.longitude = it.longitude
 
-//            findNavController().navigate(R.id.action_mapFragment_to_mapResultsFragment)
+            findNavController().navigate(R.id.action_mapFragment_to_mapResultsFragment)
 
         }
     }
