@@ -34,13 +34,13 @@ class HomeFragment2 : Fragment() {
 
 
         // we pass productViewModel to use it in favoriteToggleButton in adapter
-        photoAdapter = PhotosRecyclerViewAdapter()
+        photoAdapter = PhotosRecyclerViewAdapter(requireActivity())
         binding.recyclerView1.adapter = photoAdapter
 
         observers()
 
-        //Event
-       // photoViewModel.callPhotos() // because we want the call when app start so we add it in onViewCreated
+//        //Event
+//        photoViewModel.callPhotos() // because we want the call when app start so we add it in onViewCreated
 
     }
 
@@ -51,6 +51,12 @@ class HomeFragment2 : Fragment() {
             photoAdapter.submitList(it.photos.photo)
             binding.recyclerView1.animate().alpha(1f)
 
+        })
+
+        photoViewModel.databaseLiveData.observe(viewLifecycleOwner, {
+            binding.photoProgressBar1.animate().alpha(0f).setDuration(1000)
+            photoAdapter.submitList(it)
+            binding.recyclerView1.animate().alpha(1f)
         })
 
     }
