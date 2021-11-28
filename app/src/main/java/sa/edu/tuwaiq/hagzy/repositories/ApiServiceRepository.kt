@@ -36,6 +36,10 @@ class ApiServiceRepository(val context: Context) {
     suspend fun getPhotos(latitude: Double, longitude: Double) =
         retrofitApi.getPhotos(latitude, longitude) // lat:Latitude,lon:Longitude
 
+
+    // this request gets the most recent photos from the flickr api
+    suspend fun getRecentPhotos() = retrofitApi.getRecentPhotos()
+
 //--------------------------------------------//
 
     // to initialize and get the repository we use the companion object

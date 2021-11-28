@@ -11,6 +11,8 @@ import sa.edu.tuwaiq.hagzy.repositories.ApiServiceRepository
 import java.lang.Exception
 
 private const val TAG = "PhotosViewModel"
+
+
 class PhotosViewModel: ViewModel(){
 
     private val apiRepo = ApiServiceRepository.get()
@@ -35,6 +37,36 @@ class PhotosViewModel: ViewModel(){
             try {
                 // send request
                 val response = apiRepo.getPhotos(latitude, longitude)
+
+                Log.d(TAG,"normal ")
+                Log.d(TAG,"latitude $latitude   longitude $longitude ")
+
+                if (response.isSuccessful){
+                    response.body()?.run {
+                        Log.d(TAG,this.toString())
+                        photosLiveData.postValue(this)
+                    }
+                }else{
+                    Log.d(TAG,"else"+response.message())
+                    photosErrorLiveData.postValue(response.message())
+                }
+            }catch (e:Exception){
+                Log.d(TAG,e.message.toString())
+                photosErrorLiveData.postValue(e.message.toString())
+            }
+        }
+    }
+
+    // for just call request
+    fun callRecentPhotos(){
+
+        // we need Scope with the suspend function
+        //viewModelScope -->> the Scope  end after the function end
+        viewModelScope.launch (Dispatchers.IO){
+
+            try {
+                // send request
+                val response = apiRepo.getRecentPhotos()
 
                 if (response.isSuccessful){
                     response.body()?.run {
