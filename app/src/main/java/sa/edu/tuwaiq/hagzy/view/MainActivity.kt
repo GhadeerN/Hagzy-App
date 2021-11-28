@@ -1,30 +1,29 @@
 package sa.edu.tuwaiq.hagzy.view
 
-import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.*
 import sa.edu.tuwaiq.hagzy.databinding.ActivityMainBinding
 import sa.edu.tuwaiq.hagzy.repositories.ApiServiceRepository
+import sa.edu.tuwaiq.hagzy.view.main.PhotosViewModel
 
 private const val TAG = "MainActivity"
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var sharedPref: SharedPreferences
-    private lateinit var sharedPrefEditor: SharedPreferences.Editor
 
-    // Maps variables
+    // Creating an instance of the PhotosViewModel to update the lat and long values
+    private val viewModel: PhotosViewModel by viewModels()
+
+    // Location provider variable
     private lateinit var fusedLocationProviderClint : FusedLocationProviderClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // SharedPref initialization - to set the values for the lat and long
-//        sharedPref = this.getSharedPreferences(SHARED_PREF_FILE, MODE_PRIVATE)
-//        sharedPrefEditor = sharedPref.edit()
 
         ApiServiceRepository.init(this) // init for the Repository then we use it any where
 
@@ -34,11 +33,7 @@ class MainActivity : AppCompatActivity() {
 
         fusedLocationProviderClint = LocationServices.getFusedLocationProviderClient(this)
 
-
-        binding.buttonLocation.setOnClickListener {
-            Log.d(TAG,"buttonLocation")
-            fetchLocation()
-        }
+        fetchLocation()
 
     }
 
@@ -56,20 +51,24 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-        task.addOnSuccessListener {
+        task.addOnSuccessListener {location ->
 
-            Log.d(TAG,"addOnSuccessListener")
+            Log.d(TAG, "addOnSuccessListener")
 
-            if (it != null){
-                Log.d(TAG,"!= null")
+            if (location != null) {
+                Log.d(TAG, "!= null")
 
-                Log.d(TAG,"log ${it.longitude} ,  lat ${it.latitude}")
-            }else{
-                Log.d(TAG," null")
-                Log.d(TAG,"log ${it?.longitude} ,  lat ${it?.latitude}")
+                // Assign the lat and long variables in the view model, why?
+                // We need to pass these data to the main/home fragment
+                viewModel.latitude = location.latitude
+                viewModel.longitude = location.longitude
+
+                Log.d(TAG, "log ${location.longitude} ,  lat ${location.latitude}")
+            } else {
+                Log.d(TAG, " null")
+                Log.d(TAG, "log ${location?.longitude} ,  lat ${location?.latitude}")
 
             }
-
         }
 
     }
