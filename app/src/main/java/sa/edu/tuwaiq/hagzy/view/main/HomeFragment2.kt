@@ -39,8 +39,8 @@ class HomeFragment2 : Fragment() {
 
         observers()
 
-        //Event
-        photoViewModel.callPhotos() // because we want the call when app start so we add it in onViewCreated
+//        //Event
+//        photoViewModel.callPhotos() // because we want the call when app start so we add it in onViewCreated
 
     }
 

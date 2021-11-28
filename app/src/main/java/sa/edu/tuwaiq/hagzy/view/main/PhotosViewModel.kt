@@ -42,7 +42,7 @@ class PhotosViewModel: ViewModel(){
         // we need Scope with the suspend function
         //viewModelScope -->> the Scope  end after the function end
         viewModelScope.launch (Dispatchers.IO){
-
+        Log.d(TAG, "log ${longitude} ,  lat ${latitude}")
             try {
                 // send request
                 val response = apiRepo.getPhotos(latitude, longitude)

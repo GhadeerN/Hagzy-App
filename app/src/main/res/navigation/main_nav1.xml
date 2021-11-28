@@ -3,11 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav1"
-    app:startDestination="@id/homeFragment2">
+    app:startDestination="@id/mapFragment">
 
     <fragment
         android:id="@+id/homeFragment2"
         android:name="sa.edu.tuwaiq.hagzy.view.main.HomeFragment2"
         android:label="fragment_home2"
         tools:layout="@layout/fragment_home2" />
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="sa.edu.tuwaiq.hagzy.MapFragment"
+        android:label="fragment_map"
+        tools:layout="@layout/fragment_map" />
 </navigation>
