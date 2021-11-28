@@ -16,6 +16,7 @@ import com.google.android.gms.location.LocationServices
 import sa.edu.tuwaiq.hagzy.R
 import sa.edu.tuwaiq.hagzy.databinding.ActivityMainBinding
 import sa.edu.tuwaiq.hagzy.repositories.ApiServiceRepository
+import sa.edu.tuwaiq.hagzy.repositories.RoomServiceRepository
 import sa.edu.tuwaiq.hagzy.view.main.PhotosViewModel
 
 private const val TAG = "MainActivity"
@@ -35,6 +36,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         ApiServiceRepository.init(this) // init for the Repository then we use it any where
+
+        //initialization of the database repository
+        RoomServiceRepository.init(this)
 
         // using binding -->> no need for findViewById method
         binding = ActivityMainBinding.inflate(layoutInflater)
