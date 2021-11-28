@@ -13,10 +13,8 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import com.squareup.picasso.Picasso
-import sa.edu.tuwaiq.hagzy.databinding.ItemLayout2Binding
 import sa.edu.tuwaiq.hagzy.databinding.ItemLayoutBinding
 import sa.edu.tuwaiq.hagzy.model.Photo
-import sa.edu.tuwaiq.hagzy.model.PhotoModel
 import java.io.ByteArrayOutputStream
 
 var currentPosition: Int = 0
