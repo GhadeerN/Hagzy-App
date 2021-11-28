@@ -10,46 +10,46 @@ import sa.edu.tuwaiq.hagzy.model.PhotoModel
 import sa.edu.tuwaiq.hagzy.repositories.ApiServiceRepository
 import java.lang.Exception
 
-private const val TAG = "PhotosViewModel"
-class PhotosViewModel: ViewModel(){
-
+private const val TAG = "MapViewModel"
+class MapViewModel: ViewModel() {
     private val apiRepo = ApiServiceRepository.get()
-
-    // for get the live data
-    val  photosLiveData = MutableLiveData<PhotoModel>()
-
-    // live data for error
-    val photosErrorLiveData = MutableLiveData<String>()
 
     // lat and long variables for the location
     var latitude = 0.0
     var longitude = 0.0
 
-    // for just call request
-    fun callPhotos(){
+    // for map results live data
+    val mapResultsLiveData = MutableLiveData<PhotoModel>()
 
-        // we need Scope with the suspend function
-        //viewModelScope -->> the Scope  end after the function end
+    // live data for error
+    val mapResultsErrorLiveData = MutableLiveData<String>()
+
+    /* This function is to call the photos based on the lat and long of the new location specified
+    *  by our user on the map.
+    *  The callPhoto will take 2 parameters: lat and long, then it will post the result into the
+    *  mapResultsLiveData variable.
+    *  */
+
+    fun callPhotos(lat: Double, long: Double) {
         viewModelScope.launch (Dispatchers.IO){
-        Log.d(TAG, "log ${longitude} ,  lat ${latitude}")
+
             try {
                 // send request
-                val response = apiRepo.getPhotos(latitude, longitude)
-
+                val response = apiRepo.getPhotos(lat, long)
+                Log.d(TAG, "HERE Map: LAT: $lat, LONG: $long")
                 if (response.isSuccessful){
                     response.body()?.run {
                         Log.d(TAG,this.toString())
-                        photosLiveData.postValue(this)
+                        mapResultsLiveData.postValue(this)
                     }
                 }else{
                     Log.d(TAG,"else"+response.message())
-                    photosErrorLiveData.postValue(response.message())
+                    mapResultsErrorLiveData.postValue(response.message())
                 }
-            }catch (e:Exception){
+            }catch (e: Exception){
                 Log.d(TAG,e.message.toString())
-                photosErrorLiveData.postValue(e.message.toString())
+                mapResultsErrorLiveData.postValue(e.message.toString())
             }
         }
     }
-
 }

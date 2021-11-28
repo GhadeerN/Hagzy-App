@@ -63,7 +63,9 @@ class MainActivity : AppCompatActivity() {
                 viewModel.latitude = location.latitude
                 viewModel.longitude = location.longitude
 
-                Log.d(TAG, "log ${location.longitude} ,  lat ${location.latitude}")
+                viewModel.callPhotos() // because we want the call when app start so we add it in onViewCreated
+
+                Log.d(TAG, "log ${viewModel.longitude} ,  lat ${viewModel.latitude}")
             } else {
                 Log.d(TAG, " null")
                 Log.d(TAG, "log ${location?.longitude} ,  lat ${location?.latitude}")
