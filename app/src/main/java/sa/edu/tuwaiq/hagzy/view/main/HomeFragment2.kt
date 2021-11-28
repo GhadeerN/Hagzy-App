@@ -53,5 +53,11 @@ class HomeFragment2 : Fragment() {
 
         })
 
+        photoViewModel.databaseLiveData.observe(viewLifecycleOwner, {
+            binding.photoProgressBar1.animate().alpha(0f).setDuration(1000)
+            photoAdapter.submitList(it)
+            binding.recyclerView1.animate().alpha(1f)
+        })
+
     }
 }
