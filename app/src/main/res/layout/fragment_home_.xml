@@ -5,13 +5,15 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/back"
+    android:background="@drawable/mapicon"
+    android:backgroundTint="#37474F"
     tools:context=".view.Home_Fragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/home_recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@drawable/photo"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
