@@ -1,18 +1,27 @@
 package sa.edu.tuwaiq.hagzy.view.adapters
 
+import android.content.Context
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.net.Uri
+import android.provider.MediaStore
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import com.squareup.picasso.Picasso
 import sa.edu.tuwaiq.hagzy.databinding.ItemLayout2Binding
+import sa.edu.tuwaiq.hagzy.databinding.ItemLayoutBinding
 import sa.edu.tuwaiq.hagzy.model.Photo
 import sa.edu.tuwaiq.hagzy.model.PhotoModel
+import java.io.ByteArrayOutputStream
 
 var currentPosition: Int = 0
 
-class PhotosRecyclerViewAdapter() : RecyclerView.Adapter<PhotosRecyclerViewAdapter.PhotosViewHolder>() {
+class PhotosRecyclerViewAdapter(val context: Context) : RecyclerView.Adapter<PhotosRecyclerViewAdapter.PhotosViewHolder>() {
 
     // DiffUtil --> will keep old data and just change or add the new one
     val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Photo>(){
@@ -39,7 +48,7 @@ class PhotosRecyclerViewAdapter() : RecyclerView.Adapter<PhotosRecyclerViewAdapt
         viewType: Int
     ): PhotosRecyclerViewAdapter.PhotosViewHolder {
 
-        val binding = ItemLayout2Binding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val binding = ItemLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         return PhotosViewHolder(binding)
     }
 
@@ -49,6 +58,7 @@ class PhotosRecyclerViewAdapter() : RecyclerView.Adapter<PhotosRecyclerViewAdapt
         val item = differ.currentList[position]
 
         holder.bind(item)
+
     }
 
     override fun getItemCount(): Int {
@@ -56,13 +66,34 @@ class PhotosRecyclerViewAdapter() : RecyclerView.Adapter<PhotosRecyclerViewAdapt
     }
 
 
-    class PhotosViewHolder(val binding: ItemLayout2Binding): RecyclerView.ViewHolder(binding.root) {
+    inner class PhotosViewHolder(val binding: ItemLayoutBinding): RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item:Photo){
-            binding.ownerTextView1.text = item.ownername
-            binding.viewsTextView1.text = item.views
+            binding.ownerNameTextView.text = item.ownername
+            binding.viewsTextView.text = "Views: ${item.views}"
+            Picasso.get().load(item.urlM).into(binding.homeImageView)
 
-            Picasso.get().load(item.urlM).into(binding.photoImageView1)
+            binding.shareImageButton.setOnClickListener {
+                val image: Bitmap? = getBitmapFromView(binding.homeImageView)
+
+                val share = Intent(Intent.ACTION_SEND)
+                share.type = "image/*"
+                share.putExtra(Intent.EXTRA_STREAM, getImageUri(context, image!!))
+                context.startActivity(Intent.createChooser(share, "Share via"))
+            }
+
+        }
+        fun getBitmapFromView(view: ImageView): Bitmap? {
+            val bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
+            val canvas = Canvas(bitmap)
+            view.draw(canvas)
+            return bitmap
+        }
+        fun getImageUri(inContext: Context, inImage: Bitmap): Uri? {
+            val bytes = ByteArrayOutputStream()
+            inImage.compress(Bitmap.CompressFormat.JPEG,100,bytes)
+            val path = MediaStore.Images.Media.insertImage(inContext.contentResolver, inImage, "title",null)
+                return Uri.parse(path)
         }
 
     }

@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
     android:orientation="vertical"
     android:padding="15dp">
 
@@ -23,6 +22,7 @@
                 android:id="@+id/home_imageView"
                 android:layout_width="0dp"
                 android:layout_height="217dp"
+                android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -34,7 +34,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/linearLayout4"
                 android:layout_width="match_parent"
-                android:layout_height="79dp"
+                android:layout_height="50dp"
                 android:alpha="0.81"
                 android:background="#CFD8DC"
                 android:orientation="horizontal"
@@ -45,8 +45,8 @@
 
                 <ToggleButton
                     android:id="@+id/fav_toggleButton"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
                     android:layout_marginEnd="32dp"
                     android:background="@drawable/ic_baseline_favorite_border_24"
                     android:textIsSelectable="true"
@@ -54,18 +54,18 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.483" />
+                    app:layout_constraintVertical_bias="0.483"
+                    tools:ignore="TouchTargetSizeCheck" />
 
                 <TextView
                     android:id="@+id/ownerName_textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
                     android:gravity="center|left"
                     android:text="@string/owner"
                     android:textColor="@color/black"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -76,13 +76,27 @@
                     android:gravity="center|left"
                     android:text="@string/view"
                     android:textColor="@color/black"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/fav_toggleButton"
-                    app:layout_constraintHorizontal_bias="0.055"
+                    app:layout_constraintEnd_toStartOf="@+id/share_imageButton"
+                    app:layout_constraintHorizontal_bias="0.085"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/ownerName_textView"
-                    app:layout_constraintVertical_bias="0.631" />
+                    app:layout_constraintVertical_bias="0.916" />
+
+                <ImageButton
+                    android:id="@+id/share_imageButton"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="15dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/fav_toggleButton"
+                    app:layout_constraintHorizontal_bias="0.913"
+                    app:layout_constraintStart_toEndOf="@+id/ownerName_textView"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_baseline_share_24"
+                    tools:ignore="SpeakableTextPresentCheck" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

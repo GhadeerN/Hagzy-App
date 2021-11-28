@@ -16,6 +16,7 @@ import com.google.android.gms.location.LocationServices
 import sa.edu.tuwaiq.hagzy.R
 import sa.edu.tuwaiq.hagzy.databinding.ActivityMainBinding
 import sa.edu.tuwaiq.hagzy.repositories.ApiServiceRepository
+import sa.edu.tuwaiq.hagzy.repositories.RoomServiceRepository
 import sa.edu.tuwaiq.hagzy.view.main.PhotosViewModel
 
 private const val TAG = "MainActivity"
@@ -35,6 +36,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         ApiServiceRepository.init(this) // init for the Repository then we use it any where
+
+        //initialization of the database repository
+        RoomServiceRepository.init(this)
 
         // using binding -->> no need for findViewById method
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -94,7 +98,9 @@ class MainActivity : AppCompatActivity() {
                 viewModel.latitude = location.latitude
                 viewModel.longitude = location.longitude
 
-                Log.d(TAG, "log ${location.longitude} ,  lat ${location.latitude}")
+                viewModel.callPhotos() // because we want the call when app start so we add it in onViewCreated
+
+                Log.d(TAG, "log ${viewModel.longitude} ,  lat ${viewModel.latitude}")
             } else {
                 Log.d(TAG, " null")
                 Log.d(TAG, "log ${location?.longitude} ,  lat ${location?.latitude}")
