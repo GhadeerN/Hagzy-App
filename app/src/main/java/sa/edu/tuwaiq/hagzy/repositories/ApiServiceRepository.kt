@@ -7,7 +7,7 @@ import sa.edu.tuwaiq.hagzy.api.FlickerApi
 
 private const val BASE_URL = "https://api.flickr.com"
 
-class ApiServiceRepository(val context: Context) {
+class ApiServiceRepository() {
 
 
     private val retrofitService = Retrofit.Builder()
@@ -32,9 +32,9 @@ class ApiServiceRepository(val context: Context) {
     companion object {
         private var instance: ApiServiceRepository? = null
 
-        fun init(context: Context) {
+        fun init() {
             if (instance == null)
-                instance = ApiServiceRepository(context)
+                instance = ApiServiceRepository()
         }
 
         fun get(): ApiServiceRepository {

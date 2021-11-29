@@ -45,8 +45,8 @@ class MainActivity : AppCompatActivity() {
     // Creating an instance of the PhotosViewModel to update the lat and long values
     private val viewModel: PhotosViewModel by viewModels()
 
-    // Location provider variable
-    private lateinit var fusedLocationProviderClint: FusedLocationProviderClient
+//    // Location provider variable
+//    private lateinit var fusedLocationProviderClint: FusedLocationProviderClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,7 +67,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        fusedLocationProviderClint = LocationServices.getFusedLocationProviderClient(this)
+//        // Location provider variable
+//        val fusedLocationProviderClint = LocationServices.getFusedLocationProviderClient(this)
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
@@ -106,8 +107,9 @@ class MainActivity : AppCompatActivity() {
                     // Permission is granted -> Get Photo baseOn user Location
                     getPhotoByLocation()
                 } else {
-                    // request is cancelled, so get most Recent Photos from flicker API (RecentPhotos don't depend on location)
-                    viewModel.callRecentPhotos()
+
+                    // request is cancelled, so get the  Default Photo (with Default latitude,longitude)
+                    viewModel.callDefaultPhoto()
                 }
                 return
             }
@@ -123,6 +125,9 @@ class MainActivity : AppCompatActivity() {
 
 
         checkLocationPermission()
+
+        // Location provider variable
+        val fusedLocationProviderClint = LocationServices.getFusedLocationProviderClient(this)
         var task = fusedLocationProviderClint.lastLocation
 
         Log.d(TAG, "task" + task.exception)
@@ -200,7 +205,7 @@ class MainActivity : AppCompatActivity() {
 
     //-----------------------------------------------------------------------------------------------------------//
 
-    // This function show alert Dialog to ask user to on GPS
+    // This function show alert Dialog to ask user t o on GPS
     // press OK -> GPS settings will open
     // press cancel -> callRecentPhotos (most Recent Photos in flicker)
     private fun alertGpsDialog() {
@@ -217,7 +222,8 @@ class MainActivity : AppCompatActivity() {
         gpsAlertDialog.setNegativeButton(R.string.alert_Dialog_negativeButton) { dialog, id ->
             //if user chose NO
             Log.d(TAG, "alertGpsDialog : Cancel")
-            viewModel.callRecentPhotos()
+            // request is cancelled, so get the  Default Photo (with Default latitude,longitude)
+              viewModel.callDefaultPhoto()
         }
         gpsAlertDialog.show()
 
@@ -237,7 +243,10 @@ class MainActivity : AppCompatActivity() {
                 getPhotoByLocation()
                 Log.d(TAG,"onActivityResult requestCode if")
             }else{
-                viewModel.callRecentPhotos()
+                // request is cancelled, so get the  Default Photo (with Default latitude,longitude)
+                Log.d(TAG,"onActivityResult requestCode else")
+
+                viewModel.callDefaultPhoto()
             }
 
         }

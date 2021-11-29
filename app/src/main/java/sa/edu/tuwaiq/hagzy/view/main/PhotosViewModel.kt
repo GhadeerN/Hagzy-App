@@ -14,7 +14,8 @@ import sa.edu.tuwaiq.hagzy.repositories.RoomServiceRepository
 import java.lang.Exception
 
 private const val TAG = "PhotosViewModel"
-
+private const val LAT = 27.523647 // latitude of Hail, Saudi Arabia
+private const val LON = 41.696632 // longitude of Hail, Saudi Arabia
 
 class PhotosViewModel: ViewModel(){
 
@@ -35,8 +36,8 @@ class PhotosViewModel: ViewModel(){
 
 
     // lat and long variables for the location
-    var latitude = 0.0
-    var longitude = 0.0
+    var latitude = LAT
+    var longitude = LON
 
     // for just call request
     fun callPhotos(){
@@ -44,45 +45,16 @@ class PhotosViewModel: ViewModel(){
         // we need Scope with the suspend function
         //viewModelScope -->> the Scope  end after the function end
         viewModelScope.launch (Dispatchers.IO){
-        Log.d(TAG, "log ${longitude} ,  lat ${latitude}")
+            Log.d(TAG, "log ${longitude} ,  lat ${latitude}")
             try {
                 // send request
                 val response = apiRepo.getPhotos(latitude, longitude)
 
-                Log.d(TAG,"normal ")
-                Log.d(TAG,"latitude $latitude   longitude $longitude ")
-
                 if (response.isSuccessful){
                     response.body()?.run {
                         Log.d(TAG,this.toString())
                         photosLiveData.postValue(this)
-                    }
-                }else{
-                    Log.d(TAG,"else"+response.message())
-                    photosErrorLiveData.postValue(response.message())
-                }
-            }catch (e:Exception){
-                Log.d(TAG,e.message.toString())
-                photosErrorLiveData.postValue(e.message.toString())
-            }
-        }
-    }
-
-    // for just call request
-    fun callRecentPhotos(){
-
-        // we need Scope with the suspend function
-        //viewModelScope -->> the Scope  end after the function end
-        viewModelScope.launch (Dispatchers.IO){
-
-            try {
-                // send request
-                val response = apiRepo.getRecentPhotos()
-
-                if (response.isSuccessful){
-                    response.body()?.run {
-                        Log.d(TAG,this.toString())
-                        photosLiveData.postValue(this)
+                        Log.d(TAG, photosLiveData.toString())
 
                         // Save response in local database
                         databaseRepo.insertPhotos(photos.photo)
@@ -111,5 +83,33 @@ class PhotosViewModel: ViewModel(){
             }
         }
     }
+
+    // for just call request
+    fun callDefaultPhoto(){
+
+        Log.d(TAG, " callDefaultPhoto log ${longitude} ,  lat ${latitude}")
+
+        // we need Scope with the suspend function
+        //viewModelScope -->> the Scope  end after the function end
+        viewModelScope.launch (Dispatchers.IO){
+
+            try {
+                // send request
+                val response = apiRepo.getPhotos(LAT, LON)
+
+                if (response.isSuccessful){
+                    response.body()?.run {
+                        Log.d(TAG,this.toString())
+                        photosLiveData.postValue(this)
+                    }
+                }else{
+                    Log.d(TAG,"else"+response.message())
+                    photosErrorLiveData.postValue(response.message())
+                }
+            }catch (e:Exception){
+                Log.d(TAG,e.message.toString())
+                photosErrorLiveData.postValue(e.message.toString())
+            }
+        }    }
 
 }

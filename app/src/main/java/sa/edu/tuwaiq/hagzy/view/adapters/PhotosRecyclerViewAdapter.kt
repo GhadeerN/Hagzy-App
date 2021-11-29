@@ -12,7 +12,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
+import com.bumptech.glide.Glide
 import com.squareup.picasso.Picasso
+import sa.edu.tuwaiq.hagzy.R
 import sa.edu.tuwaiq.hagzy.databinding.ItemLayoutBinding
 import sa.edu.tuwaiq.hagzy.model.Photo
 import java.io.ByteArrayOutputStream
@@ -69,7 +71,8 @@ class PhotosRecyclerViewAdapter(val context: Context) : RecyclerView.Adapter<Pho
         fun bind(item:Photo){
             binding.ownerNameTextView.text = item.ownername
             binding.viewsTextView.text = "Views: ${item.views}"
-            Picasso.get().load(item.urlM).into(binding.homeImageView)
+            //Picasso.get().load(item.urlM).into(binding.homeImageView)
+            Glide.with(itemView).load(item.urlM).into(binding.homeImageView)
 
             binding.shareImageButton.setOnClickListener {
                 val image: Bitmap? = getBitmapFromView(binding.homeImageView)
