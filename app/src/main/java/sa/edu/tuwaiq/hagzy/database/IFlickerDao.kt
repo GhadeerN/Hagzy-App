@@ -24,4 +24,7 @@ interface IFlickerDao {
     @Query("SELECT * FROM photo WHERE isFavorite" )
     suspend fun getFavoritePhotos() : List<Photo>
 
+    @Query("DELETE FROM photo")
+    suspend fun deletePhotos()
+
 }

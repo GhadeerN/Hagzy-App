@@ -52,6 +52,9 @@ class PhotosViewModel: ViewModel(){
                         Log.d(TAG,this.toString())
                         photosLiveData.postValue(this)
 
+                        // TODO Delete old stored photos, Why? because it will add the new location photo to the old one
+//                        databaseRepo.deleteAllPhotos()
+
                         // Save response in local database
                         databaseRepo.insertPhotos(photos.photo)
                         Log.d(TAG,this.toString())

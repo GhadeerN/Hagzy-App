@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        ApiServiceRepository.init(this) // init for the Repository then we use it any where
+        ApiServiceRepository.init() // init for the Repository then we use it any where
 
         //initialization of the database repository
         RoomServiceRepository.init(this)
