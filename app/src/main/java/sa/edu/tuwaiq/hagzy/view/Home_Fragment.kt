@@ -1,6 +1,7 @@
 package sa.edu.tuwaiq.hagzy.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 
@@ -18,7 +19,7 @@ import sa.edu.tuwaiq.hagzy.model.PhotoModel
 import sa.edu.tuwaiq.hagzy.view.adapters.PhotosRecyclerViewAdapter
 import sa.edu.tuwaiq.hagzy.view.main.PhotosViewModel
 
-
+private const val TAG = "Home_Fragment"
 class Home_Fragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
@@ -45,13 +46,12 @@ class Home_Fragment : Fragment() {
 
         observers()
 
-        //Event
-        photoViewModel.callPhotos() // because we want the call when app start so we add it in onViewCreated
     }
 
     private fun observers() {
         photoViewModel.photosLiveData.observe(viewLifecycleOwner, {
 
+            Log.d(TAG, "photosLiveData observers ")
             binding.homeProgressBar.animate().alpha(0f).setDuration(1000)
             photoAdapter.submitList(it.photos.photo)
             binding.homeRecyclerView.animate().alpha(1f)
