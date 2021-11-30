@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
         else
             alertGpsDialog()
 
-        ApiServiceRepository.init(this) // init for the Repository then we use it any where
+        ApiServiceRepository.init() // init for the Repository then we use it any where
 
         //initialization of the database repository
         RoomServiceRepository.init(this)
@@ -97,7 +97,7 @@ class MainActivity : AppCompatActivity() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
+        Log.d(TAG, "onRonRequestPermissionsResulte")
         when (requestCode) {
             REQUEST_CODE_LP -> {
                 // If request is cancelled, the result arrays are empty.
