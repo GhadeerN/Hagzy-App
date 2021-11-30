@@ -2,6 +2,8 @@ package sa.edu.tuwaiq.hagzy.repositories
 
 import android.content.Context
 import androidx.room.Room
+import retrofit2.Response
+import retrofit2.http.GET
 import sa.edu.tuwaiq.hagzy.database.FlickerDatabase
 import sa.edu.tuwaiq.hagzy.model.Photo
 import java.lang.Exception
@@ -27,6 +29,9 @@ class RoomServiceRepository(context: Context) {
 
     suspend fun getPhotos() = iflickrDao.getPhotos()
 
+    suspend fun  getFavoritePhotos() = iflickrDao.getFavoritePhotos()
+
+    suspend fun updatePhoto(photo: Photo) = iflickrDao.updatePhoto(photo)
 
     /** companion object to create an instance of the repository the first function will
      * initialize this repository and the second one will help us get an instance of this repository

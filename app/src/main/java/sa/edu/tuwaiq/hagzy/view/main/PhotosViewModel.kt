@@ -45,6 +45,7 @@ class PhotosViewModel: ViewModel(){
         Log.d(TAG, "log ${longitude} ,  lat ${latitude}")
             try {
                 // send request
+
                 val response = apiRepo.getPhotos(latitude, longitude)
 
                 if (response.isSuccessful){
@@ -77,6 +78,14 @@ class PhotosViewModel: ViewModel(){
                 Log.d(TAG, "Database - catch: ${databaseRepo.getPhotos()}")
 
             }
+        }
+    }
+
+
+    // Update favorite image - toggle button
+    fun updateFavoritePhoto(photo: Photo) {
+        viewModelScope.launch(Dispatchers.IO) {
+            databaseRepo.updatePhoto(photo)
         }
     }
 

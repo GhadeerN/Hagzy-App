@@ -40,7 +40,7 @@ class Home_Fragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // we pass productViewModel to use it in favoriteToggleButton in adapter
-        photoAdapter = PhotosRecyclerViewAdapter(requireActivity())
+        photoAdapter = PhotosRecyclerViewAdapter(requireActivity(), photoViewModel)
         binding.homeRecyclerView.adapter = photoAdapter
 
         observers()

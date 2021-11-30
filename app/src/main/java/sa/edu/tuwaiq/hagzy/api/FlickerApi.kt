@@ -3,6 +3,7 @@ package sa.edu.tuwaiq.hagzy.api
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
+import sa.edu.tuwaiq.hagzy.model.Photo
 import sa.edu.tuwaiq.hagzy.model.PhotoModel
 
 interface FlickerApi {
@@ -17,6 +18,7 @@ interface FlickerApi {
         @Query("lat") lat: Double,
         @Query("lon") lon: Double
     ): Response<PhotoModel> // use Response<PhotoModel> so we have  Response state (success or not(status code))
+
 
 
 }
