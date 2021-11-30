@@ -100,7 +100,7 @@ class HomeFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.favorite_item -> {
-                findNavController().navigate(R.id.action_home_Fragment_to_favoriteFragment)
+                findNavController().navigate(R.id.action_homeFragment_to_favoriteFragment)
             }
         }
 
