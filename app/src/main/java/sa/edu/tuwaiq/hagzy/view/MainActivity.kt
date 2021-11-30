@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var fusedLocationProviderClint: FusedLocationProviderClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.Theme_Hagzy)
         super.onCreate(savedInstanceState)
 
         ApiServiceRepository.init(this) // init for the Repository then we use it any where

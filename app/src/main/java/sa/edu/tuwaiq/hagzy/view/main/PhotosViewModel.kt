@@ -36,6 +36,9 @@ class PhotosViewModel: ViewModel(){
     var latitude = 0.0
     var longitude = 0.0
 
+    //
+    var page = 1
+
     // for just call request
     fun callPhotos(){
 
@@ -45,13 +48,14 @@ class PhotosViewModel: ViewModel(){
         Log.d(TAG, "log ${longitude} ,  lat ${latitude}")
             try {
                 // send request
-                val response = apiRepo.getPhotos(latitude, longitude)
+                val response = apiRepo.getPhotos(latitude, longitude, page)
+
 
                 if (response.isSuccessful){
                     response.body()?.run {
                         Log.d(TAG,this.toString())
                         photosLiveData.postValue(this)
-
+                        page ++
                         // Save response in local database
                         databaseRepo.insertPhotos(photos.photo)
                         Log.d(TAG,this.toString())

@@ -1,8 +1,10 @@
 package sa.edu.tuwaiq.hagzy.repositories
 
 import android.content.Context
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.Query
 import sa.edu.tuwaiq.hagzy.api.FlickerApi
 
 
@@ -33,10 +35,12 @@ class ApiServiceRepository(val context: Context) {
     private val retrofitApi = retrofitService.create(FlickerApi::class.java)
 
     // this request gets the photos from the flickr api with it's latitude and longitude
-    suspend fun getPhotos(latitude: Double, longitude: Double) =
-        retrofitApi.getPhotos(latitude, longitude) // lat:Latitude,lon:Longitude
+    suspend fun getPhotos(latitude: Double, longitude: Double, page: Int) =
+        retrofitApi.getPhotos(latitude, longitude, page) // lat:Latitude,lon:Longitude
 
 //--------------------------------------------//
+
+
 
     // to initialize and get the repository we use the companion object
     //singleton (single object)

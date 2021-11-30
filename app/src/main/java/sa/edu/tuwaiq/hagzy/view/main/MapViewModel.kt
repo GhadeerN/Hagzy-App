@@ -20,7 +20,7 @@ class MapViewModel: ViewModel() {
 
     // for map results live data
     val mapResultsLiveData = MutableLiveData<PhotoModel>()
-
+    var page = 1
     // live data for error
     val mapResultsErrorLiveData = MutableLiveData<String>()
 
@@ -35,10 +35,11 @@ class MapViewModel: ViewModel() {
 
             try {
                 // send request
-                val response = apiRepo.getPhotos(lat, long)
+                val response = apiRepo.getPhotos(lat, long, page)
                 Log.d(TAG, "HERE Map: LAT: $lat, LONG: $long")
                 if (response.isSuccessful){
                     response.body()?.run {
+                        page++
                         Log.d(TAG,this.toString())
                         mapResultsLiveData.postValue(this)
                     }
