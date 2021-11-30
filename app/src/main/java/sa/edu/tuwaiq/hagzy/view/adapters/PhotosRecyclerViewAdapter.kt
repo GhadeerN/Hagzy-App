@@ -1,7 +1,6 @@
 package sa.edu.tuwaiq.hagzy.view.adapters
 
 import android.content.Context
-import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.net.Uri
@@ -13,18 +12,20 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import com.bumptech.glide.Glide
-import com.squareup.picasso.Picasso
-import sa.edu.tuwaiq.hagzy.R
 import sa.edu.tuwaiq.hagzy.databinding.ItemLayoutBinding
 import sa.edu.tuwaiq.hagzy.model.Photo
+import sa.edu.tuwaiq.hagzy.util.ShareImageUtil
+import sa.edu.tuwaiq.hagzy.view.DetailsDialogFragment
+import sa.edu.tuwaiq.hagzy.view.MainActivity
 import java.io.ByteArrayOutputStream
 
 var currentPosition: Int = 0
 
-class PhotosRecyclerViewAdapter(val context: Context) : RecyclerView.Adapter<PhotosRecyclerViewAdapter.PhotosViewHolder>() {
+class PhotosRecyclerViewAdapter(val context: Context) :
+    RecyclerView.Adapter<PhotosRecyclerViewAdapter.PhotosViewHolder>() {
 
     // DiffUtil --> will keep old data and just change or add the new one
-    val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Photo>(){
+    val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Photo>() {
         override fun areItemsTheSame(oldItem: Photo, newItem: Photo): Boolean {
             return oldItem.id == newItem.id
         }
@@ -35,10 +36,10 @@ class PhotosRecyclerViewAdapter(val context: Context) : RecyclerView.Adapter<Pho
 
     }
 
-    private val differ = AsyncListDiffer(this,DIFF_CALLBACK)
+    private val differ = AsyncListDiffer(this, DIFF_CALLBACK)
 
     // to give the differ our data (the list)
-    fun submitList(list:List<Photo>){
+    fun submitList(list: List<Photo>) {
         differ.submitList(list)
     }
 
@@ -48,7 +49,7 @@ class PhotosRecyclerViewAdapter(val context: Context) : RecyclerView.Adapter<Pho
         viewType: Int
     ): PhotosRecyclerViewAdapter.PhotosViewHolder {
 
-        val binding = ItemLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val binding = ItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return PhotosViewHolder(binding)
     }
 
@@ -66,35 +67,28 @@ class PhotosRecyclerViewAdapter(val context: Context) : RecyclerView.Adapter<Pho
     }
 
 
-    inner class PhotosViewHolder(val binding: ItemLayoutBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class PhotosViewHolder(val binding: ItemLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item:Photo){
+        fun bind(item: Photo) {
             binding.ownerNameTextView.text = item.ownername
             binding.viewsTextView.text = "Views: ${item.views}"
             //Picasso.get().load(item.urlM).into(binding.homeImageView)
             Glide.with(itemView).load(item.urlM).into(binding.homeImageView)
 
             binding.shareImageButton.setOnClickListener {
-                val image: Bitmap? = getBitmapFromView(binding.homeImageView)
-
-                val share = Intent(Intent.ACTION_SEND)
-                share.type = "image/*"
-                share.putExtra(Intent.EXTRA_STREAM, getImageUri(context, image!!))
-                context.startActivity(Intent.createChooser(share, "Share via"))
+                ShareImageUtil.shareImage(binding.homeImageView, context)
             }
 
-        }
-        fun getBitmapFromView(view: ImageView): Bitmap? {
-            val bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
-            val canvas = Canvas(bitmap)
-            view.draw(canvas)
-            return bitmap
-        }
-        fun getImageUri(inContext: Context, inImage: Bitmap): Uri? {
-            val bytes = ByteArrayOutputStream()
-            inImage.compress(Bitmap.CompressFormat.JPEG,100,bytes)
-            val path = MediaStore.Images.Media.insertImage(inContext.contentResolver, inImage, "title",null)
-                return Uri.parse(path)
+            // Open image details
+            binding.homeImageView.setOnClickListener {
+                val activity = itemView.context as? MainActivity
+                DetailsDialogFragment(item.urlM).show(
+                    activity!!.supportFragmentManager,
+                    "DetailsDialogFragment"
+                )
+            }
+
         }
 
     }

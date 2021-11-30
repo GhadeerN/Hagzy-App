@@ -98,7 +98,7 @@ class MainActivity : AppCompatActivity() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
+        Log.d(TAG, "onRonRequestPermissionsResulte")
         when (requestCode) {
             REQUEST_CODE_LP -> {
                 // If request is cancelled, the result arrays are empty.

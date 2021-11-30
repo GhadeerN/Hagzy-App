@@ -57,6 +57,7 @@ class Home_Fragment : Fragment() {
 
     private fun observers() {
         photoViewModel.photosLiveData.observe(viewLifecycleOwner, {
+            Log.d(TAG, "photosLiveData observers ")
 
             binding.homeProgressBar.animate().alpha(0f).setDuration(1000)
             photoAdapter.submitList(it.photos.photo)
@@ -77,5 +78,4 @@ class Home_Fragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         requireActivity().menuInflater.inflate(R.menu.main_activity_top_app_bar, menu)
     }
-
 }

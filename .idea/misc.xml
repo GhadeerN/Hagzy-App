@@ -6,10 +6,18 @@
         <entry key="..\:/Users/aliju/AndroidStudioProjects/FinalCapston/Hagzy-App/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/aliju/AndroidStudioProjects/FinalCapston/Hagzy-App/app/src/main/res/layout/fragment_home2.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/aliju/AndroidStudioProjects/FinalCapston/Hagzy-App/app/src/main/res/layout/item_layout2.xml" value="0.24010416666666667" />
-        <entry key="..\:/Users/shara/Documents/Hagzy-App/app/src/main/res/drawable/splash_image.xml" value="0.1712962962962963" />
-        <entry key="..\:/Users/shara/Documents/Hagzy-App/app/src/main/res/layout/activity_main.xml" value="0.2140625" />
-        <entry key="..\:/Users/shara/Documents/Hagzy-App/app/src/main/res/layout/fragment_home_.xml" value="0.13240740740740742" />
-        <entry key="..\:/Users/shara/Documents/Hagzy-App/app/src/main/res/layout/item_layout.xml" value="0.14947916666666666" />
+
+        <entry key="..\:/Users/gadee/OneDrive/Desktop/T1000/Projects/Hagzy/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/gadee/OneDrive/Desktop/T1000/Projects/Hagzy/app/src/main/res/layout/dialog_layout.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/gadee/OneDrive/Desktop/T1000/Projects/Hagzy/app/src/main/res/layout/favorite_item_layout.xml" value="0.5" />
+        <entry key="..\:/Users/gadee/OneDrive/Desktop/T1000/Projects/Hagzy/app/src/main/res/layout/fragment_favorite.xml" value="0.1" />
+        <entry key="..\:/Users/gadee/OneDrive/Desktop/T1000/Projects/Hagzy/app/src/main/res/layout/fragment_home2.xml" value="0.1" />
+        <entry key="..\:/Users/gadee/OneDrive/Desktop/T1000/Projects/Hagzy/app/src/main/res/layout/fragment_home_.xml" value="0.1" />
+        <entry key="..\:/Users/gadee/OneDrive/Desktop/T1000/Projects/Hagzy/app/src/main/res/layout/fragment_map.xml" value="0.1" />
+        <entry key="..\:/Users/gadee/OneDrive/Desktop/T1000/Projects/Hagzy/app/src/main/res/layout/fragment_map_results.xml" value="0.1" />
+        <entry key="..\:/Users/gadee/OneDrive/Desktop/T1000/Projects/Hagzy/app/src/main/res/layout/fragment_search.xml" value="0.1" />
+        <entry key="..\:/Users/gadee/OneDrive/Desktop/T1000/Projects/Hagzy/app/src/main/res/layout/item_layout.xml" value="0.22" />
+        <entry key="..\:/Users/gadee/OneDrive/Desktop/T1000/Projects/Hagzy/app/src/main/res/layout/item_layout2.xml" value="0.1" />
       </map>
     </option>
   </component>
