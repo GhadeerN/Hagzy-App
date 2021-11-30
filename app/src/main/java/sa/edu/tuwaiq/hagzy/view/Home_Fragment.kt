@@ -2,6 +2,7 @@ package sa.edu.tuwaiq.hagzy.view
 
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 
@@ -23,14 +24,12 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 
 
 
-
+private const val TAG = "Home_Fragment"
 class Home_Fragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
 
     private lateinit var photoAdapter: PhotosRecyclerViewAdapter
-    //refresh layout declaration
-    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private val photoViewModel: PhotosViewModel by activityViewModels()
 
 
@@ -49,21 +48,11 @@ class Home_Fragment : Fragment() {
         // we pass productViewModel to use it in favoriteToggleButton in adapter
         photoAdapter = PhotosRecyclerViewAdapter(requireActivity())
         binding.homeRecyclerView.adapter = photoAdapter
-        //refresh layout assignment
-        swipeRefreshLayout = binding.swipeRefreshLayout
 
         observers()
 
         //Event
         photoViewModel.callPhotos() // because we want the call when app start so we add it in onViewCreated
-
-        swipeRefreshLayout.setOnRefreshListener(){
-            photoViewModel.callPhotos()
-            Handler().postDelayed(Runnable {
-                swipeRefreshLayout.isRefreshing = false
-            }, 4000)
-//            photoAdapter.notifyDataSetChanged()
-        }
     }
 
     private fun observers() {
@@ -88,7 +77,5 @@ class Home_Fragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         requireActivity().menuInflater.inflate(R.menu.main_activity_top_app_bar, menu)
     }
-
-
 
 }
