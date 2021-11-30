@@ -17,9 +17,6 @@ private const val TAG = "DateFormat"
 class DateFormat {
 
 
-
-
-
     @RequiresApi(Build.VERSION_CODES.O)
      fun dateFormatted(date: String): String {
         var dateLong = date.toLong()
@@ -27,8 +24,6 @@ class DateFormat {
             dateLong?.let {
                 Instant.ofEpochSecond(it) }, ZoneId.systemDefault())
 
-        Log.d(TAG,dateLong.toString())
-        Log.d(TAG,dateTime.toString())
         // The pattern letters means: E -> day name, MMM -> Month name, d -> day of month number, y -> the year
         // Resource: https://developer.android.com/reference/kotlin/java/time/format/DateTimeFormatter
         return dateTime.format(DateTimeFormatter.ofPattern("E, MMM d, y"))
