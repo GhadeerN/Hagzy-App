@@ -36,8 +36,11 @@ class PhotosViewModel: ViewModel(){
 
 
     // lat and long variables for the location
-    var latitude = LAT
-    var longitude = LON
+    var latitude = 0.0
+    var longitude = 0.0
+
+    //
+    var page = 1
 
     // for just call request
     fun callPhotos(){
@@ -45,15 +48,17 @@ class PhotosViewModel: ViewModel(){
         // we need Scope with the suspend function
         //viewModelScope -->> the Scope  end after the function end
         viewModelScope.launch (Dispatchers.IO){
-            Log.d(TAG, "log ${longitude} ,  lat ${latitude}")
+        Log.d(TAG, "log ${longitude} ,  lat ${latitude}")
             try {
                 // send request
-                val response = apiRepo.getPhotos(latitude, longitude)
+                val response = apiRepo.getPhotos(latitude, longitude, page)
+
 
                 if (response.isSuccessful){
                     response.body()?.run {
                         Log.d(TAG,this.toString())
                         photosLiveData.postValue(this)
+                        page ++
                         Log.d(TAG, photosLiveData.toString())
 
                         // TODO Delete old stored photos, Why? because it will add the new location photo to the old one
@@ -98,7 +103,7 @@ class PhotosViewModel: ViewModel(){
 
             try {
                 // send request
-                val response = apiRepo.getPhotos(LAT, LON)
+                val response = apiRepo.getPhotos(LAT, LON, page)
 
                 if (response.isSuccessful){
                     response.body()?.run {
