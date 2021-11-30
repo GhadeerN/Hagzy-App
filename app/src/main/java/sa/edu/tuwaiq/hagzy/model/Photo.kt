@@ -6,6 +6,10 @@ import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 @Entity
 data class Photo(
+    @SerializedName("datetaken")
+    val dateTaken: String,
+    @SerializedName("dateupload")
+    val dateUpload: String,
     @SerializedName("height_m")
     val heightM: Int,
     @SerializedName("id")
