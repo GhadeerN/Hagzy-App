@@ -36,7 +36,7 @@ class ApiServiceRepository() {
 
     // this request gets the photos from the flickr api with it's latitude and longitude
     suspend fun getPhotos(latitude: Double, longitude: Double, page: Int) =
-        retrofitApi.getPhotos(latitude, longitude,) // lat:Latitude,lon:Longitude
+        retrofitApi.getPhotos(latitude, longitude) // lat:Latitude,lon:Longitude
 
 //--------------------------------------------//
 
