@@ -36,8 +36,8 @@ class PhotosViewModel: ViewModel(){
 
 
     // lat and long variables for the location
-    var latitude = LAT
-    var longitude = LON
+    var latitude = 0.0
+    var longitude = 0.0
 
     // for just call request
     fun callPhotos(){
@@ -45,7 +45,7 @@ class PhotosViewModel: ViewModel(){
         // we need Scope with the suspend function
         //viewModelScope -->> the Scope  end after the function end
         viewModelScope.launch (Dispatchers.IO){
-            Log.d(TAG, "log ${longitude} ,  lat ${latitude}")
+        Log.d(TAG, "log ${longitude} ,  lat ${latitude}")
             try {
                 // send request
                 val response = apiRepo.getPhotos(latitude, longitude)
@@ -114,5 +114,13 @@ class PhotosViewModel: ViewModel(){
                 photosErrorLiveData.postValue(e.message.toString())
             }
         }    }
+
+
+    // Update favorite image - toggle button
+    fun updateFavoritePhoto(photo: Photo) {
+        viewModelScope.launch(Dispatchers.IO) {
+            databaseRepo.updatePhoto(photo)
+        }
+    }
 
 }

@@ -1,9 +1,6 @@
 package sa.edu.tuwaiq.hagzy.database
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import sa.edu.tuwaiq.hagzy.model.Photo
 
 
@@ -26,5 +23,8 @@ interface IFlickerDao {
 
     @Query("DELETE FROM photo")
     suspend fun deletePhotos()
+
+    @Update
+    suspend fun updatePhoto(photo: Photo)
 
 }

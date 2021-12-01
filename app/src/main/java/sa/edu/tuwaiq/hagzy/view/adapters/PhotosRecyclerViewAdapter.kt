@@ -1,10 +1,12 @@
 package sa.edu.tuwaiq.hagzy.view.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.net.Uri
 import android.provider.MediaStore
+import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -17,15 +19,17 @@ import sa.edu.tuwaiq.hagzy.model.Photo
 import sa.edu.tuwaiq.hagzy.util.ShareImageUtil
 import sa.edu.tuwaiq.hagzy.view.DetailsDialogFragment
 import sa.edu.tuwaiq.hagzy.view.MainActivity
+import sa.edu.tuwaiq.hagzy.view.main.PhotosViewModel
 import java.io.ByteArrayOutputStream
 
 var currentPosition: Int = 0
 
-class PhotosRecyclerViewAdapter(val context: Context) :
+private const val TAG = "PhotosRecyclerViewAdapt"
+class PhotosRecyclerViewAdapter(val context: Context, val viewModel: PhotosViewModel) :
     RecyclerView.Adapter<PhotosRecyclerViewAdapter.PhotosViewHolder>() {
 
     // DiffUtil --> will keep old data and just change or add the new one
-    val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Photo>() {
+    val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Photo>(){
         override fun areItemsTheSame(oldItem: Photo, newItem: Photo): Boolean {
             return oldItem.id == newItem.id
         }
@@ -36,10 +40,10 @@ class PhotosRecyclerViewAdapter(val context: Context) :
 
     }
 
-    private val differ = AsyncListDiffer(this, DIFF_CALLBACK)
+    private val differ = AsyncListDiffer(this,DIFF_CALLBACK)
 
     // to give the differ our data (the list)
-    fun submitList(list: List<Photo>) {
+    fun submitList(list:List<Photo>){
         differ.submitList(list)
     }
 
@@ -49,7 +53,7 @@ class PhotosRecyclerViewAdapter(val context: Context) :
         viewType: Int
     ): PhotosRecyclerViewAdapter.PhotosViewHolder {
 
-        val binding = ItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         return PhotosViewHolder(binding)
     }
 
@@ -67,17 +71,24 @@ class PhotosRecyclerViewAdapter(val context: Context) :
     }
 
 
-    inner class PhotosViewHolder(val binding: ItemLayoutBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    inner class PhotosViewHolder(val binding: ItemLayoutBinding): RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: Photo) {
+        fun bind(item:Photo){
             binding.ownerNameTextView.text = item.ownername
             binding.viewsTextView.text = "Views: ${item.views}"
             //Picasso.get().load(item.urlM).into(binding.homeImageView)
             Glide.with(itemView).load(item.urlM).into(binding.homeImageView)
+            binding.favToggleButton.isChecked = item.isFavorite
 
             binding.shareImageButton.setOnClickListener {
                 ShareImageUtil.shareImage(binding.homeImageView, context)
+            }
+
+            // Favorite toggle button functionality
+            binding.favToggleButton.setOnClickListener {
+                item.isFavorite = binding.favToggleButton.isChecked
+                Log.d(TAG, "adapter: favorite item: ${item.isFavorite}")
+                viewModel.updateFavoritePhoto(item)
             }
 
             // Open image details
@@ -90,6 +101,7 @@ class PhotosRecyclerViewAdapter(val context: Context) :
             }
 
         }
+
 
     }
 

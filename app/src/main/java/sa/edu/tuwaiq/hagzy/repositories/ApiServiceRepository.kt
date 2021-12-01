@@ -4,7 +4,7 @@ import android.content.Context
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import sa.edu.tuwaiq.hagzy.api.FlickerApi
-
+import sa.edu.tuwaiq.hagzy.model.Photo
 
 
 private const val BASE_URL = "https://api.flickr.com"
@@ -36,7 +36,11 @@ class ApiServiceRepository() {
     suspend fun getPhotos(latitude: Double, longitude: Double) =
         retrofitApi.getPhotos(latitude, longitude) // lat:Latitude,lon:Longitude
 
+
+
+
 //--------------------------------------------//
+
 
     // to initialize and get the repository we use the companion object
     //singleton (single object)

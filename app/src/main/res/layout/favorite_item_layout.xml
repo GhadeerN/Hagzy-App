@@ -3,28 +3,37 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/favorite_imageView"
-        android:layout_width="150dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:foregroundGravity="center"
+        app:cardCornerRadius="5dp"
+        app:cardUseCompatPadding="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ToggleButton
-        android:id="@+id/favorite_toggle_button"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:background="@drawable/ic_baseline_favorite_24"
-        android:textOff=" "
-        app:layout_constraintEnd_toEndOf="@+id/favorite_imageView"
-        app:layout_constraintTop_toTopOf="@+id/favorite_imageView"
-        tools:ignore="TouchTargetSizeCheck" />
+        <ImageView
+            android:id="@+id/favorite_imageView"
+            android:layout_width="220dp"
+            android:layout_height="220dp"
+            android:scaleType="centerCrop"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <ToggleButton
+            android:id="@+id/favorite_toggleButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="right"
+            android:layout_margin="10dp"
+            android:background="@drawable/ic_baseline_favorite_24"
+            android:gravity="right"
+            android:textOff=" "
+            android:textOn=" " />
+    </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
