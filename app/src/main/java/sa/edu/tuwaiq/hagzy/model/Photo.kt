@@ -28,5 +28,5 @@ data class Photo(
     @SerializedName("width_m")
     val widthM: Int,
 
-    val isFavorite: Boolean = false
+    var isFavorite: Boolean = false
 )

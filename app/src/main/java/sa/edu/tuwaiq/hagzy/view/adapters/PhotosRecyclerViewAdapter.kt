@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.net.Uri
 import android.provider.MediaStore
+import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -18,11 +19,13 @@ import sa.edu.tuwaiq.hagzy.model.Photo
 import sa.edu.tuwaiq.hagzy.util.ShareImageUtil
 import sa.edu.tuwaiq.hagzy.view.DetailsDialogFragment
 import sa.edu.tuwaiq.hagzy.view.MainActivity
+import sa.edu.tuwaiq.hagzy.view.main.PhotosViewModel
 import java.io.ByteArrayOutputStream
 
 var currentPosition: Int = 0
 
-class PhotosRecyclerViewAdapter(val context: Context) :
+private const val TAG = "PhotosRecyclerViewAdapt"
+class PhotosRecyclerViewAdapter(val context: Context, val viewModel: PhotosViewModel) :
     RecyclerView.Adapter<PhotosRecyclerViewAdapter.PhotosViewHolder>() {
 
     // DiffUtil --> will keep old data and just change or add the new one
@@ -79,9 +82,17 @@ class PhotosRecyclerViewAdapter(val context: Context) :
             // Caching with glide
             Glide.with(itemView).load(item.urlM).diskCacheStrategy(
                 DiskCacheStrategy.ALL).into(binding.homeImageView)
+            binding.favToggleButton.isChecked = item.isFavorite
 
             binding.shareImageButton.setOnClickListener {
                 ShareImageUtil.shareImage(binding.homeImageView, context)
+            }
+
+            // Favorite toggle button functionality
+            binding.favToggleButton.setOnClickListener {
+                item.isFavorite = binding.favToggleButton.isChecked
+                Log.d(TAG, "adapter: favorite item: ${item.isFavorite}")
+                viewModel.updateFavoritePhoto(item)
             }
 
             // Open image details

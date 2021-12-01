@@ -31,7 +31,7 @@ class MapResultsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        photoAdapter = PhotosRecyclerViewAdapter(requireActivity())
+//        photoAdapter = PhotosRecyclerViewAdapter(requireActivity(), mapViewModel)
         binding.mapResultRecyclerView.adapter = photoAdapter
 
         viewModel.callPhotos(viewModel.mapLat, viewModel.mapLong)

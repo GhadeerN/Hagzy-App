@@ -28,6 +28,9 @@ class RoomServiceRepository(context: Context) {
     suspend fun getPhotos() = iflickrDao.getPhotos()
 
     suspend fun deleteAllPhotos() = iflickrDao.deletePhotos()
+    suspend fun  getFavoritePhotos() = iflickrDao.getFavoritePhotos()
+
+    suspend fun updatePhoto(photo: Photo) = iflickrDao.updatePhoto(photo)
 
     /** companion object to create an instance of the repository the first function will
      * initialize this repository and the second one will help us get an instance of this repository

@@ -156,4 +156,12 @@ class PhotosViewModel : ViewModel() {
         }
     }
 
+
+    // Update favorite image - toggle button
+    fun updateFavoritePhoto(photo: Photo) {
+        viewModelScope.launch(Dispatchers.IO) {
+            databaseRepo.updatePhoto(photo)
+        }
+    }
+
 }
