@@ -10,11 +10,12 @@ import sa.edu.tuwaiq.hagzy.R
 import sa.edu.tuwaiq.hagzy.databinding.FragmentMapResultsBinding
 import sa.edu.tuwaiq.hagzy.view.adapters.PhotosRecyclerViewAdapter
 import sa.edu.tuwaiq.hagzy.view.main.MapViewModel
+import sa.edu.tuwaiq.hagzy.view.main.PhotosViewModel
 
 class MapResultsFragment : Fragment() {
 
     private lateinit var binding: FragmentMapResultsBinding
-    private val mapViewModel: MapViewModel by activityViewModels()
+    private val viewModel: PhotosViewModel by activityViewModels()
     private lateinit var photoAdapter: PhotosRecyclerViewAdapter
 
 
@@ -33,20 +34,20 @@ class MapResultsFragment : Fragment() {
         photoAdapter = PhotosRecyclerViewAdapter(requireActivity())
         binding.mapResultRecyclerView.adapter = photoAdapter
 
-        mapViewModel.callPhotos(mapViewModel.latitude, mapViewModel.longitude)
+        viewModel.callPhotos(viewModel.mapLat, viewModel.mapLong)
 
         observers()
     }
 
     // this function to observe the changes in the live data (observe for call)
     private fun observers() {
-        mapViewModel.mapResultsLiveData.observe(viewLifecycleOwner, { data ->
+        viewModel.mapResultsLiveData.observe(viewLifecycleOwner, { data ->
             data?.let {
                 binding.mapResultsProgressBar.animate().alpha(0f).setDuration(1000)
                 photoAdapter.submitList(it.photos.photo)
                 binding.mapResultRecyclerView.animate().alpha(1f)
             }
-            mapViewModel.mapResultsLiveData.postValue(null)
+            viewModel.mapResultsLiveData.postValue(null)
         })
 
     }

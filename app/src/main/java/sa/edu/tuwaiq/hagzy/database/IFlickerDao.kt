@@ -4,6 +4,8 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import retrofit2.Response
+import retrofit2.http.GET
 import sa.edu.tuwaiq.hagzy.model.Photo
 
 
@@ -12,7 +14,7 @@ interface IFlickerDao {
 
 
     //insert parameters in the database
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertPhotos(photos: List<Photo>)
 
 //     this functions selects the data and gets us all the photo data
@@ -26,5 +28,4 @@ interface IFlickerDao {
 
     @Query("DELETE FROM photo")
     suspend fun deletePhotos()
-
 }

@@ -24,7 +24,10 @@ private const val TAG = "MapFragment"
 class MapFragment : Fragment() {
 
     private val viewModel: PhotosViewModel by activityViewModels()
-    private val mapViewModel: MapViewModel by activityViewModels()
+
+    // Global variables for the lat and long - to track the location changes
+    var latitude = 0.0
+    var longitude = 0.0
 
     // Location provider variable
     private lateinit var fusedLocationProviderClint: FusedLocationProviderClient
@@ -50,10 +53,18 @@ class MapFragment : Fragment() {
         mapFragment!!.getMapAsync { googleMap ->
             googleMap.mapType = GoogleMap.MAP_TYPE_NORMAL
 
-            /* Take the user current location (latitude, longitude) from the PhotoViewModel - Everytime our users will open the map,
-               their current location will shown via the red pin/marker. */
-            val latitude = viewModel.latitude
-            val longitude = viewModel.longitude
+            /* Everytime our users will open the map, their current location will shown via the red pin/marker.
+            *  This if condition will check first if the user was entering the map for the first time or not (based on the lat & long stored on our view model),
+            *  it will take his/her current location.
+            *  In case the user has chosen a place on the map, we will reserve the new selected location so when the user click back button from the mapResult
+            *  fragment (<-), the marker/red pin will be on the previously selected location */
+            if (latitude.toString() == "0.0" && longitude.toString() == "0.0") {
+                latitude = viewModel.latitude
+                longitude = viewModel.longitude
+            } else {
+                latitude = viewModel.mapLat
+                longitude = viewModel.mapLong
+            }
             Log.d(
                 TAG,
                 "Inside the mapAsync -> lat: ${viewModel.latitude}, long: ${viewModel.longitude}"
@@ -75,8 +86,8 @@ class MapFragment : Fragment() {
             Log.d(TAG, "OnClickListener: Inside. Lat: ${it.latitude}, Long: ${it.longitude}")
 
             // On the user click event -> it will take the new lat and long then it will store it on the map view model
-            mapViewModel.latitude = it.latitude
-            mapViewModel.longitude = it.longitude
+            viewModel.mapLat = it.latitude
+            viewModel.mapLong = it.longitude
 
             findNavController().navigate(R.id.action_mapFragment_to_mapResultsFragment)
 

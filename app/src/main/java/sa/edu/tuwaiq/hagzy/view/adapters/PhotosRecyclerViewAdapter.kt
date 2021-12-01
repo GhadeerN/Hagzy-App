@@ -12,6 +12,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import sa.edu.tuwaiq.hagzy.databinding.ItemLayoutBinding
 import sa.edu.tuwaiq.hagzy.model.Photo
 import sa.edu.tuwaiq.hagzy.util.ShareImageUtil
@@ -74,7 +75,10 @@ class PhotosRecyclerViewAdapter(val context: Context) :
             binding.ownerNameTextView.text = item.ownername
             binding.viewsTextView.text = "Views: ${item.views}"
             //Picasso.get().load(item.urlM).into(binding.homeImageView)
-            Glide.with(itemView).load(item.urlM).into(binding.homeImageView)
+
+            // Caching with glide
+            Glide.with(itemView).load(item.urlM).diskCacheStrategy(
+                DiskCacheStrategy.ALL).into(binding.homeImageView)
 
             binding.shareImageButton.setOnClickListener {
                 ShareImageUtil.shareImage(binding.homeImageView, context)
@@ -83,7 +87,7 @@ class PhotosRecyclerViewAdapter(val context: Context) :
             // Open image details
             binding.homeImageView.setOnClickListener {
                 val activity = itemView.context as? MainActivity
-                DetailsDialogFragment(item.urlM).show(
+                DetailsDialogFragment(item.urlM, item.dateUpload).show(
                     activity!!.supportFragmentManager,
                     "DetailsDialogFragment"
                 )
