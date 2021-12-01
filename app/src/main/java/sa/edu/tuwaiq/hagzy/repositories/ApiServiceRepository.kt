@@ -1,8 +1,10 @@
 package sa.edu.tuwaiq.hagzy.repositories
 
 import android.content.Context
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.Query
 import sa.edu.tuwaiq.hagzy.api.FlickerApi
 
 
@@ -37,6 +39,8 @@ class ApiServiceRepository() {
         retrofitApi.getPhotos(latitude, longitude,) // lat:Latitude,lon:Longitude
 
 //--------------------------------------------//
+
+
 
     // to initialize and get the repository we use the companion object
     //singleton (single object)
