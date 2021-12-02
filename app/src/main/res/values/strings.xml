@@ -2,6 +2,14 @@
     <string name="app_name">Hagzy</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="owner">Owner</string>
-    <string name="view">View</string>
+    <string name="google_maps_key">AIzaSyCea07OZtu9D3ltbw5BTfXt0OnRm-O3T3Y</string>
+    <string name="owner">Heba Ali</string>
+    <string name="view">Views: 12</string>
+
+    <!-- alert Gps Dialog -->
+     <string name="alert_Dialog_title">turn location on !</string>
+    <string name="alert_Dialog_message">you have enable the location so we get you nearby photo!</string>
+    <string name="alert_Dialog_positiveButton">OK</string>
+    <string name="alert_Dialog_negativeButton">Cancel</string>
+
 </resources>
