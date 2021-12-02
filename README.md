@@ -6,7 +6,7 @@
 
 ## Table of contents 📄
 - [List of Technologies](#list-of-technologies)
-- [User Stories](#user-sories:)
+- [User Stories](#user-sories)
 - [Wireframe](#wireframe)
 - [Planning and Development](#planning-and-development)
 - [Final App](#final-app)
@@ -40,10 +40,12 @@ Figma link  https://www.figma.com/file/tvyPpkcEIqQBdK9GHr83ww/Untitled?node-id=0
 <hr>
 
 ## User Stories
--	As a user, I want to download Geofence application so that I can get notice the nearest places around me.
--	As a user I want the application to show the nearest places with photos so I can see where I am going.
+-	As a user I want the application to show the nearest places with photos so I can see where I am going to.
 -	As a user I want to see the pictures consecutively so I can see many pictures around scrolling the screen
--	
+-	As a user I want to click on favorite button so that I could save my favorite places to see it later if I want to visit now or later.
+-	As a user I want to share image for my favorite places with friends and family.
+-	As a user I want I want to show the image details, owner of the photo, number of views, share button & favorite button in popup dialog.
+-	As a user I want to open the map so I can click on the place that what I want  to show small images for the places around the chosen place
 
 <hr>
 
@@ -59,9 +61,11 @@ Our plan was as follows:
 4. Testing
 
 ### Problem solving strategy:
-my problem strategies to solve the errors by google searching, material design website, Mr. Mohamed, Mr.Saad, medium website. #List unsolved problems which would be fixed in future iterations. unsolved problems:
--	using another database not just the local database that we used
-Describe how some of your favorite functions work
+Our team mostly solve the problems in the following order: 
+1. Identify the problem 
+2. Debugging the code
+3. Search about the error (Google, Stackoverflow)
+4. Ask the experts
 
 <hr>
 
