@@ -72,3 +72,20 @@ Our team mostly solve the problems in the following order:
 ## Final App
 
 ![Final project](https://l.top4top.io/p_2162u2ycx1.jpeg)
+
+<hr>
+
+## Dependencies
+
+We used the following dependencies for google map and for getting the user current location:
+
+```groovy
+ dependencies {
+    // ...
+    // Maps - view map service
+    implementation 'com.google.android.gms:play-services-maps:18.0.0'
+
+    // Maps - location
+    implementation 'com.google.android.gms:play-services-location:18.0.0'
+  }
+```
